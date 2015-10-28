@@ -51,7 +51,7 @@ public class PlayerListener implements Listener {
      */
     @EventHandler
     public void onCommandPre(PlayerCommandPreprocessEvent e) {
-        if(e.getMessage().toLowerCase().startsWith("amsg") || e.getMessage().toLowerCase().startsWith("a")) {
+        if(e.getMessage().toLowerCase().startsWith("/amsg") || e.getMessage().toLowerCase().startsWith("/a")) {
             if(e.getPlayer().hasPermission("adminchat.send")) {
                 String[] parts = e.getMessage().split(" ");
                 String text = Util.combineArray(parts, 1);
