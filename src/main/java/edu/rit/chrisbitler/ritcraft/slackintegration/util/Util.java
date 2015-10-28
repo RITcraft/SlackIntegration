@@ -29,4 +29,18 @@ public class Util {
             player.sendMessage(getPrefix() + msg);
         }
     }
+
+    /**
+     * Combines the parts of a string array into a statement seperated by spaces
+     * @param array The array to combine
+     * @param offset The starting offset in the array to start combining at.
+     * @return
+     */
+    public static String combineArray(String[] array, int offset) {
+        String combination = "";
+        for(int i = offset; i < array.length; i++) {
+            combination+=(array[i]+" ");
+        }
+        return combination;
+    }
 }

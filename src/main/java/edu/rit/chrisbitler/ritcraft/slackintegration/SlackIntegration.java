@@ -24,13 +24,13 @@ import java.net.*;
  */
 public class SlackIntegration extends JavaPlugin {
 
-    private RTMClient rtm; //Main websocket client for communicating with slack
+    private static RTMClient rtm; //Main websocket client for communicating with slack
 
     private ClientManager client; //Websocket client from Tyrus implementation
 
     public static String BOT_TOKEN = ""; //Bot's api token, loaded from config
     public static  String RELAY_CHANNEL = ""; //Relay channel for displaying messages and reading chat
-
+    public static String ADMIN_CHANNEL = "";
     /**
      * Enable the plugin and do intial configuration
      */
@@ -41,13 +41,16 @@ public class SlackIntegration extends JavaPlugin {
         if(getConfig().getString("token") == null) {
             getConfig().addDefault("token","token");
             getConfig().addDefault("relay_channel","channel id");
+            getConfig().addDefault("admin_channel","admin channel id");
             getConfig().options().copyDefaults(true);
             saveConfig();
-            System.out.println("Please set the bot api token & relay channel id in the configuration file before running.");
+            System.out.println("Please set the bot api token, relay channel id, and (optionally) the admin channel id in the configuration file before running.");
             Bukkit.getPluginManager().disablePlugin(this);
+            return;
         }else{
             BOT_TOKEN =  getConfig().getString("token");
             RELAY_CHANNEL = getConfig().getString("relay_channel");
+            ADMIN_CHANNEL = getConfig().getString("admin_channel");
         }
 
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
@@ -90,7 +93,7 @@ public class SlackIntegration extends JavaPlugin {
      * Get the plugin's RTM client
      * @return the RTM client
      */
-    public RTMClient getRTM() {
+    public static RTMClient getRTM() {
         return rtm;
     }
 
