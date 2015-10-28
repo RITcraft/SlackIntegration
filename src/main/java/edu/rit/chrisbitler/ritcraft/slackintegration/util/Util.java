@@ -43,4 +43,21 @@ public class Util {
         }
         return combination;
     }
+
+    /**
+     * Shift an array forward a number of elements
+     * @param array The array that you want to shift
+     * @param offset The offset that you want to start on
+     * @return The shifted array
+     */
+    public static String[] shiftArray(String[] array, int offset) {
+        String[] newArray = new String[array.length-offset];
+        int j = 0;
+        for(int i = offset; i < array.length; i++) {
+            newArray[j] = array[i];
+            j++;
+        }
+        return newArray;
+    }
+
 }

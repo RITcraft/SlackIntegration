@@ -6,6 +6,8 @@ package edu.rit.chrisbitler.ritcraft.slackintegration;
 import edu.rit.chrisbitler.ritcraft.slackintegration.listeners.PlayerListener;
 import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.RTMClient;
 import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.UserList;
+import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.commands.CommandCommand;
+import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.commands.PlayersCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.glassfish.tyrus.client.ClientManager;
@@ -55,6 +57,10 @@ public class SlackIntegration extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
 
+        //Register the commands to be used with the bot
+        new CommandCommand();
+        new PlayersCommand();
+        
         try {
             //Start the real-time messaging with slack by querying their api with the token to get a websocket url
             URL url = new URL("https://www.slack.com/api/rtm.start?token="+BOT_TOKEN);
