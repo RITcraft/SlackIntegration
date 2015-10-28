@@ -3,6 +3,7 @@
  */
 package edu.rit.chrisbitler.ritcraft.slackintegration;
 
+import com.ammaraskar.adminonly.AdminChat;
 import edu.rit.chrisbitler.ritcraft.slackintegration.listeners.PlayerListener;
 import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.RTMClient;
 import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.UserList;
@@ -33,6 +34,9 @@ public class SlackIntegration extends JavaPlugin {
     public static String BOT_TOKEN = ""; //Bot's api token, loaded from config
     public static  String RELAY_CHANNEL = ""; //Relay channel for displaying messages and reading chat
     public static String ADMIN_CHANNEL = "";
+
+    public AdminChat adminChat;
+
     /**
      * Enable the plugin and do intial configuration
      */
@@ -60,7 +64,12 @@ public class SlackIntegration extends JavaPlugin {
         //Register the commands to be used with the bot
         new CommandCommand();
         new PlayersCommand();
-        
+
+        //Load adminprivatechat if it is there
+        if(Bukkit.getPluginManager().getPlugin("AdminPrivateChat") != null) {
+            adminChat = (AdminChat) Bukkit.getPluginManager().getPlugin("AdminPrivateChat");
+        }
+
         try {
             //Start the real-time messaging with slack by querying their api with the token to get a websocket url
             URL url = new URL("https://www.slack.com/api/rtm.start?token="+BOT_TOKEN);

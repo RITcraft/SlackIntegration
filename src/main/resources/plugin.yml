@@ -2,3 +2,4 @@ name: SlackIntegration
 version: 1.0
 author: VoidWhisperer
 main: edu.rit.chrisbitler.ritcraft.slackintegration.SlackIntegration
+softdepend: [AdminPrivateChat]

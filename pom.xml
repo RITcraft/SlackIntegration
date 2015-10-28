@@ -32,6 +32,13 @@
             <artifactId>tyrus-standalone-client</artifactId>
             <version>1.12</version>
         </dependency>
+        <dependency>
+            <groupId>com.ammar2</groupId>
+            <artifactId>adminprivatechat</artifactId>
+            <version>2.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/AdminPrivateChat2.0.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
