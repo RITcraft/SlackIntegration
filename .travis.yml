@@ -1,4 +1,8 @@
 language: java
-
+install: mvn install -Dmaven.compiler.target=1.8 -Dmaven.compiler.source=1.8 -DskipTests=true
+script: mvn test -Dmaven.compiler.target=1.8 -Dmaven.compiler.source=1.8
+jdk:
+ - oraclejdk8
 notifications:
-  slack: ritcraft:JTeOAZSnIIdbdlZtcMWWQZFp
+  slack:
+    secure: g/WmqbpZgYoyooZ15PPWjqtkX7E3ePxwjBfR+K54yrnujAnVu4D7vQOVA/00YP0wz0DzcrRviiWQ3UxeatKKyzT9TpYfNCG8A4a89IYnf2QUW/L7O4zpwHyLhIihbsvbcyaP1lwybqZhsij7mgtdzEnX8hjPfZIDmgtcXsiQsha9eR3hdAPcW9Vkyj2jggaUjILP68XwjYSnSv0PZsw0u/OePCeks6eN7+IOCyXhymEHY9DuCVWf/Zpf5RxDY8PbealQ+eVPS0FsdXNTkdHmDyD/gvPIXuLiJbzdgILoxJuobafCRZPLywHOGnXsW4IERnAXzgS7PLpSKowWbuSB0GyWxkV1+xnc8RzSAriAF6GqHgZlG5YJPmwbhcmnLuufxx/Q6KYgpjngVbMH2Qv+HYWYIzqCn8BB4ox0mfL5Ncb/RwgAC1C4QubLcOlzAyQcG6nCrcQXpmOTjwjTYwS6Aff05o1hKVb+haUzmZLm7DvKhYSfb2kUMYmmuCgVySt/o1dHgLT5mtBKCFCmbZZiYrwgIiIikzyGoMRbdcERN1y4ijpvt/zS2mY+R6B/hytPd1zNKjoMLIF+8gSwVRYF+UuDepvF2d3oS56mSHrc/XA9Fvt56pwMe5HEF07otnBak2LENaDzRbUduYMhNVkQxAfYCsIzNtm0882tyCInWYM=
