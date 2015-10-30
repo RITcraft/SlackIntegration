@@ -3,6 +3,7 @@ SlackIntegration is a plugin created by Chris Bitler for RITCraft to allow peopl
 
 ##Compilation:
 All you need to do to compile this plugin is to have maven installed and run mvn package, assuming you don't have a firewall blocking any of the dependencies
+
 Alternatively, you can download it from our jenkins: http://vwserver.student.rit.edu:8080/job/SlackIntegration/lastSuccessfulBuild/
 ##Configuration:
 There are only two configuration values, that you will be asked to change once you start the plugin the first time, these are the bot api token and the ID of the channel you want to use as a relay.
