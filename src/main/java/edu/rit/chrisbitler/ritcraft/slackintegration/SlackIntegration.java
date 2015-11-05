@@ -43,6 +43,8 @@ import java.net.*;
  */
 public class SlackIntegration extends JavaPlugin {
 
+    public static SlackIntegration instance; //Current instance of the plugin
+
     private static RTMClient rtm; //Main websocket client for communicating with slack
 
     private ClientManager client; //Websocket client from Tyrus implementation
@@ -57,6 +59,7 @@ public class SlackIntegration extends JavaPlugin {
      * Enable the plugin and do intial configuration
      */
     public void onEnable() {
+        instance = this;
         System.out.println("Enabling Slack Integration");
 
         //Load the configuration data

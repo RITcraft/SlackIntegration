@@ -44,7 +44,12 @@ public class CommandCommand extends Command {
     @Override
     public void processCommand(String channel, String[] args) {
         String command = Util.combineArray(args,0);
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(),command);
+        Bukkit.getScheduler().runTask(SlackIntegration.instance, new Runnable() {
+            @Override
+            public void run() {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+            }
+        });
         SlackIntegration.getRTM().sendSlackMessage("Command sent!",SlackIntegration.ADMIN_CHANNEL);
     }
 }
