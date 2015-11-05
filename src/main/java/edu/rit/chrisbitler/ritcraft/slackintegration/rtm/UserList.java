@@ -31,6 +31,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Class to help maintain a list of user ids to usernames since
@@ -78,5 +79,13 @@ public class UserList {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String replaceAllUserIDs(String text)
+    {
+        for(Map.Entry<String, String> id : users.entrySet()) {
+            text = text.replace(id.getKey(),id.getValue());
+        }
+        return text;
     }
 }

@@ -46,6 +46,7 @@ public class MsgMessage {
             //the username is not null (aka the bot), and the chhanel is the relay channel
             if(!text.startsWith("!")) {
                 if (channel.equals(SlackIntegration.RELAY_CHANNEL)) {
+                    text = UserList.replaceAllUserIDs(text);
                     Util.broadcast(UserList.getName(userName) + ": " + StringEscapeUtils.unescapeHtml(text));
                 }
             }else{
