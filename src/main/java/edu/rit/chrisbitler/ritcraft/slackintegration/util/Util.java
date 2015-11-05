@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 RITcraft
+ * Copyright 2015 RITcraft & Chris Bitler
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ public class Util {
      * @return the plugin message prefix
      */
     public static String getPrefix() {
-        return ChatColor.AQUA + "[" + ChatColor.GOLD + "Slack" + ChatColor.AQUA + "] " + ChatColor.WHITE;
+        return ChatColor.DARK_GRAY + "[" + ChatColor.GOLD + "Slack" + ChatColor.DARK_GRAY + "] " + ChatColor.WHITE;
     }
 
     /**
