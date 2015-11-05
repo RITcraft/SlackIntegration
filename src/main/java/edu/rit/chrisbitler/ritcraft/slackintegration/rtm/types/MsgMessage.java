@@ -24,6 +24,7 @@ import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.UserList;
 import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.commands.Command;
 import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.commands.CommandRegistry;
 import edu.rit.chrisbitler.ritcraft.slackintegration.util.Util;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.json.simple.JSONObject;
 
 /**
@@ -45,7 +46,7 @@ public class MsgMessage {
             //the username is not null (aka the bot), and the chhanel is the relay channel
             if(!text.startsWith("!")) {
                 if (channel.equals(SlackIntegration.RELAY_CHANNEL)) {
-                    Util.broadcast(UserList.getName(userName) + ": " + text);
+                    Util.broadcast(UserList.getName(userName) + ": " + StringEscapeUtils.unescapeHtml(text));
                 }
             }else{
                 //Split the message into parts based on spaces and check the command to see
