@@ -25,6 +25,7 @@ import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.commands.Command;
 import edu.rit.chrisbitler.ritcraft.slackintegration.rtm.commands.CommandRegistry;
 import edu.rit.chrisbitler.ritcraft.slackintegration.util.Util;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.bukkit.Bukkit;
 import org.json.simple.JSONObject;
 
 /**
@@ -48,6 +49,9 @@ public class MsgMessage {
                 if (channel.equals(SlackIntegration.RELAY_CHANNEL)) {
                     text = UserList.replaceAllUserIDs(text);
                     Util.broadcast(UserList.getName(userName) + ": " + StringEscapeUtils.unescapeHtml(text));
+                }else if(channel.equals(SlackIntegration.ADMIN_CHANNEL)) {
+                    text = UserList.replaceAllUserIDs(text);
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"amsg [" + UserList.getName(userName) + "] " + StringEscapeUtils.unescapeHtml(text));
                 }
             }else{
                 //Split the message into parts based on spaces and check the command to see
