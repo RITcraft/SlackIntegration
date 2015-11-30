@@ -91,27 +91,17 @@ public class SlackIntegration extends JavaPlugin {
 
         try {
             //Start the real-time messaging with slack by querying their api with the token to get a websocket url
-            URL url = new URL("https://www.slack.com/api/rtm.start?token="+BOT_TOKEN);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setInstanceFollowRedirects(true);
-            conn.connect();
-            JSONObject returnVal = (JSONObject) JSONValue.parse(new InputStreamReader((InputStream) conn.getContent()));
-            String wsUrl = (String) returnVal.get("url");
-
-            //unescape the wsUrl string's slashes
-            wsUrl = wsUrl.replace("\\","");
-
-            //Query the users so we can link user id -> username
-            System.out.println("Querying slack users..");
-            UserList.queryUsers();
-
-            System.out.println("Recieved WebSocket URI from slack, connecting... " + wsUrl);
-
-            //Connect via the real-time messaging client and the websocket.
-            ClientEndpointConfig cec = ClientEndpointConfig.Builder.create().build();
-            client = ClientManager.createClient();
-            rtm = new RTMClient();
-            client.connectToServer(rtm,cec,new URI(wsUrl));
+            startRTM();
+            Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
+                         if(rtm.dc == true) {
+                             try {
+                                 startRTM();
+                             } catch (Exception e) {
+                                 System.out.println("Slack is down, exiting plugin...");
+                                 Bukkit.getPluginManager().disablePlugin(this);
+                             }
+                         }
+            },0,20);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -121,6 +111,30 @@ public class SlackIntegration extends JavaPlugin {
         } catch (DeploymentException e) {
             e.printStackTrace();
         }
+    }
+
+    private void startRTM() throws IOException, URISyntaxException, DeploymentException {
+        URL url = new URL("https://www.slack.com/api/rtm.start?token="+BOT_TOKEN);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setInstanceFollowRedirects(true);
+        conn.connect();
+        JSONObject returnVal = (JSONObject) JSONValue.parse(new InputStreamReader((InputStream) conn.getContent()));
+        String wsUrl = (String) returnVal.get("url");
+
+        //unescape the wsUrl string's slashes
+        wsUrl = wsUrl.replace("\\","");
+
+        //Query the users so we can link user id -> username
+        System.out.println("Querying slack users..");
+        UserList.queryUsers();
+
+        System.out.println("Recieved WebSocket URI from slack, connecting... " + wsUrl);
+
+        //Connect via the real-time messaging client and the websocket.
+        ClientEndpointConfig cec = ClientEndpointConfig.Builder.create().build();
+        client = ClientManager.createClient();
+        rtm = new RTMClient();
+        client.connectToServer(rtm,cec,new URI(wsUrl));
     }
 
     /**

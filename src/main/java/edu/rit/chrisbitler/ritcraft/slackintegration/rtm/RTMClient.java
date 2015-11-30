@@ -39,7 +39,7 @@ import java.net.URLEncoder;
 public class RTMClient extends Endpoint {
 
     Session session; //Session, not used since we use the slack web api to send messages
-
+    public boolean dc = false; //Changed to true if the socket dies.
     /**
      * Send a slack message to a channel via the web api
      * @param text The text to send to the channel
@@ -59,6 +59,7 @@ public class RTMClient extends Endpoint {
 
     }
 
+
     /**
      * Called by superclass when the websocket closes
      * @param session The websocket session that is closing
@@ -66,7 +67,7 @@ public class RTMClient extends Endpoint {
      */
     @Override
     public void onClose(Session session, CloseReason reason) {
-        System.out.println(reason);
+        dc = true;
     }
 
     /**
@@ -76,7 +77,7 @@ public class RTMClient extends Endpoint {
      */
     @Override
     public void onError(Session sess, Throwable thr) {
-        thr.printStackTrace();
+        dc = true;
     }
 
     /**
